@@ -128,9 +128,7 @@ class FileHDF5:
             raise RuntimeError("File is not opened")
 
         self.file.flush()
-        logger.info(
-            f"Flushed {self.flush_counter} records to {self.file_path.as_posix()}"
-        )
+        logger.info(f"Flushed {self.flush_counter} records to {self.file_path}")
         self.flush_counter = 0
 
     def read(self, _id: str) -> FeatureRecord:
@@ -234,9 +232,7 @@ class FileJSONL:
             raise RuntimeError("File is not opened")
 
         self.file.flush()
-        logger.info(
-            f"Flushed {self.flush_counter} records to {self.file_path.as_posix()}"
-        )
+        logger.info(f"Flushed {self.flush_counter} records to {self.file_path}")
         self.flush_counter = 0
 
     def read(self, _id: str) -> ObjectRecord:
