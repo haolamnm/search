@@ -14,7 +14,7 @@ class ObjectRecord:
     detector: str
     scores: list[float] | None = None
     yxyx_boxes: list[tuple[float, float, float, float]] | None = None
-    labels: list[str] | None = None
+    labels: list[int] | None = None
     entities: list[str] | None = None
     names: list[str] | None = None
     monochrome: float | None = None
