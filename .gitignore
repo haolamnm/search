@@ -5,6 +5,7 @@ collection/
 command.txt
 features/
 services/analysis/clipvip/checkpoint/*
+services/analysis/clip2video/checkpoint/*
 
 # ---
 # Template for Python projects

@@ -1,3 +1,6 @@
 [submodule "services/analysis/clipvip/CLIPVIP"]
 	path = services/analysis/clipvip/CLIPVIP
 	url = https://github.com/eisneim/clip-vip_video_search.git
+[submodule "services/analysis/clip2video/CLIP2Video"]
+	path = services/analysis/clip2video/CLIP2Video
+	url = https://github.com/CryhanFang/CLIP2Video.git
