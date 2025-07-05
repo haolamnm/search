@@ -111,7 +111,7 @@ class OpenImagesExtractor(BaseObjectExtractor):
                 record = self.extract_path(frame_path)
                 records.append(record)
                 assert record.labels is not None, (
-                    f"Record labels are None for {frame_path}"
+                    f"Labels should not be None for {record._id}"
                 )
                 logger.info(f"Processed {record._id} with {len(record.labels)} labels")
             except Exception as e:
