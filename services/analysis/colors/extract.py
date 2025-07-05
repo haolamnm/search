@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Any, Iterable, Iterator
 
 import numpy as np
+import numpy.typing as npt
 import pandas as pd
 from skimage import io, measure, transform
 
@@ -69,8 +70,8 @@ def extract_colors(
             props = measure.regionprops_table(tile, properties=("label", "area"))
 
             # Shift back to original color index
-            color_areas: np.typing.NDArray[np.floating] = props["area"] // tile.size
-            color_labels: np.typing.NDArray[np.integer] = props["label"] - 1
+            color_areas: npt.NDArray[np.floating] = props["area"] // tile.size
+            color_labels: npt.NDArray[np.integer] = props["label"] - 1
 
             # Identify dominant color
             dominant_index = color_areas.argmax()
