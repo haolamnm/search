@@ -3,6 +3,8 @@
 # ---
 collection/
 command.txt
+features/
+services/analysis/clipvip/checkpoint/*
 
 # ---
 # Template for Python projects
