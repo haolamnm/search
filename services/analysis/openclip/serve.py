@@ -59,8 +59,8 @@ def create_app(model_name: str, pretrained: str, title: str) -> FastAPI:
         if not query:
             raise HTTPException(status_code=400, detail="Query cannot be empty")
         try:
-            feature = encoder.encode(query)
-            return {"feature": feature, "length": len(feature)}
+            feature_vector = encoder.encode(query)
+            return {"feature_vector": feature_vector, "length": len(feature_vector)}
         except Exception as e:
             raise HTTPException(status_code=500, detail=str(e))
 

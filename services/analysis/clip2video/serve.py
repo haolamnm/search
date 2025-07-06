@@ -1,4 +1,5 @@
 import argparse
+import logging
 
 import torch
 import uvicorn
@@ -10,11 +11,15 @@ from .CLIP2Video.modules.tokenization_clip import SimpleTokenizer as CLIPTokeniz
 from .config import Config
 from .utils import get_device, load_model
 
-import logging
-
-logging.getLogger("services.analysis.clip2video.CLIP2Video.modules.modeling").setLevel(logging.ERROR)
-logging.getLogger("services.analysis.clip2video.CLIP2Video.modules.until_module").setLevel(logging.ERROR)
-logging.getLogger("services.analysis.clip2video.CLIP2Video.modules.until_config").setLevel(logging.ERROR)
+logging.getLogger("services.analysis.clip2video.CLIP2Video.modules.modeling").setLevel(
+    logging.ERROR
+)
+logging.getLogger(
+    "services.analysis.clip2video.CLIP2Video.modules.until_module"
+).setLevel(logging.ERROR)
+logging.getLogger(
+    "services.analysis.clip2video.CLIP2Video.modules.until_config"
+).setLevel(logging.ERROR)
 
 
 class CLIP2VideoQueryEncoder:
@@ -110,8 +115,8 @@ def create_app(config: Config) -> FastAPI:
         if not query:
             raise HTTPException(status_code=400, detail="Query cannot be empty")
         try:
-            feature = encoder.encode(query)
-            return {"feature": feature, "length": len(feature)}
+            feature_vector = encoder.encode(query)
+            return {"feature_vector": feature_vector, "length": len(feature_vector)}
         except Exception as e:
             raise HTTPException(status_code=500, detail=str(e))
 

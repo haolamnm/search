@@ -76,8 +76,8 @@ def create_app(model_name: str) -> FastAPI:
         if not url:
             raise HTTPException(status_code=400, detail="Missing 'url' parameter")
         try:
-            feature = encoder.encode_url(url)
-            return {"url": url, "feature": feature, "length": len(feature)}
+            feature_vector = encoder.encode_url(url)
+            return {"url": url, "feature_vector": feature_vector, "length": len(feature_vector)}
         except Exception as e:
             raise HTTPException(status_code=500, detail=str(e))
 
@@ -89,11 +89,11 @@ def create_app(model_name: str) -> FastAPI:
         try:
             contents = await image.read()
             pil_image = Image.open(io.BytesIO(contents)).convert("RGB")
-            feature = encoder.encode_pil(pil_image)
+            feature_vector = encoder.encode_pil(pil_image)
             return {
                 "filename": image.filename,
-                "feature": feature,
-                "length": len(feature),
+                "feature_vector": feature_vector,
+                "length": len(feature_vector),
             }
         except Exception as e:
             raise HTTPException(status_code=500, detail=str(e))
