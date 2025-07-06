@@ -64,7 +64,7 @@ def main(args: argparse.Namespace) -> None:
     logger.info("Starting clustering extraction")
 
     with h5py.File(args.features_file, "r") as file:
-        frame_ids = np.array(file["ids"].asstr()[:], dtype=str)  # type: ignore
+        frame_ids = np.array(file["ids"].asstr()[:], dtype=np.str_)  # type: ignore
         frame_features = np.array(file["features"][:], dtype=np.float32)  # type: ignore
 
     cluster_codes = cluster(frame_features)
@@ -95,7 +95,8 @@ if __name__ == "__main__":
         help="force extraction even if output file exists",
     )
     parser.add_argument(
-        "-i--input",
+        "-i",
+        "--input",
         type=Path,
         dest="features_file",
         required=True,
