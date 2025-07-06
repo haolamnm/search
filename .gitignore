@@ -1,7 +1,8 @@
 # ---
 # Main
 # ---
-collection/
+_in/
+_out/
 command.txt
 features/
 services/analysis/clipvip/checkpoint/*
