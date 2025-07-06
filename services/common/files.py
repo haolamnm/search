@@ -20,13 +20,13 @@ class FileHDF5:
         file_path: str,
         read_only: bool = False,
         flush_interval: int = 20,
-        feature_name: str = "generic",
+        features_name: str = "generic",
     ) -> None:
         self.file_path = Path(file_path)
         self.read_only = read_only
         self.flush_interval = flush_interval
         self.flush_counter = 0
-        self.feature_name = feature_name
+        self.features_name = features_name
 
         self.file = None
         self.ids: dict[str, int] = {}
@@ -54,7 +54,7 @@ class FileHDF5:
             for index, _id in enumerate(self.ids_dataset.astype("S16")[:])
         }
         if not self.read_only:
-            self.file.attrs["feature_name"] = self.feature_name
+            self.file.attrs["features_name"] = self.features_name
 
         return self
 

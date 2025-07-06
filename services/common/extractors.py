@@ -61,7 +61,7 @@ class BaseFrameExtractor(BaseExtractor):
         )
         parser.add_argument(
             "-n",
-            "--feature-name",
+            "--features-name",
             type=str,
             required=True,
             help="name of the feature to extract (used hdf5 metadata)",
@@ -78,7 +78,7 @@ class BaseFrameExtractor(BaseExtractor):
     def __init__(self, args: argparse.Namespace) -> None:
         super().__init__(args)
         self.frames_dir: Path = Path(args.frames_dir)
-        self.feature_name: str = args.feature_name
+        self.features_name: str = args.features_name
         self.output_path: str = args.output
 
     def _load_frames(self) -> list[Frame]:
@@ -107,7 +107,7 @@ class BaseFrameExtractor(BaseExtractor):
 
         return FileHDF5(
             file_path=self.output_path,
-            feature_name=self.feature_name,
+            features_name=self.features_name,
             read_only=read_only,
             flush_interval=self.flush_interval,
         )
@@ -305,7 +305,7 @@ class BaseVideoExtractor(BaseExtractor):
         )
         parser.add_argument(
             "-n",
-            "--feature-name",
+            "--features-name",
             type=str,
             required=True,
             help="name of the feature extractor to use",
@@ -322,7 +322,7 @@ class BaseVideoExtractor(BaseExtractor):
     def __init__(self, args: argparse.Namespace) -> None:
         super().__init__(args)
         self.frames_dir: Path = Path(args.frames_dir)
-        self.feature_name: str = args.feature_name
+        self.features_name: str = args.features_name
         self.output_path: str = args.output
 
     def _load_frames(self) -> Iterator[Scene]:
@@ -408,7 +408,7 @@ class BaseVideoExtractor(BaseExtractor):
 
         return FileHDF5(
             file_path=self.output_path,
-            feature_name=self.feature_name,
+            features_name=self.features_name,
             read_only=read_only,
             flush_interval=self.flush_interval,
         )
