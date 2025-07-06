@@ -1,3 +1,9 @@
+analysis:
+  features:
+    clip-openai:
+      batch-size: 1
+      num-workers: 8
+
 index:
   features:
     clip-openai:
