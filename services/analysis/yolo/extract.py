@@ -58,7 +58,6 @@ def get_record(results: Any, image_width: int, image_height: int) -> ObjectRecor
         scores: list[float] = results.boxes.conf.cpu().numpy().tolist()
         labels: list[int] = results.boxes.cls.cpu().numpy().tolist()
         names: list[str] = [results.names[int(label)] for label in labels]
-        print(len(results.names))
 
         return ObjectRecord(
             _id="",
