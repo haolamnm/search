@@ -1,0 +1,5 @@
+index:
+  features:
+    clip-openai:
+      index_engine: faiss
+      index_type: Flat
