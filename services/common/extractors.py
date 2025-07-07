@@ -168,7 +168,7 @@ class BaseFrameExtractor(BaseExtractor):
 
         for video_id, items in video_groups.items():
             feature_records = [
-                FeatureRecord(_id=frame_id, feature=record.feature)
+                FeatureRecord(_id=frame_id, feature_vector=record.feature_vector)
                 for frame_id, record in items
             ]
             with self._get_output_file(video_id, read_only=False) as file:
@@ -457,7 +457,7 @@ class BaseVideoExtractor(BaseExtractor):
 
         for video_id, items in video_groups.items():
             feature_records = [
-                FeatureRecord(_id=scene_id, feature=record.feature)
+                FeatureRecord(_id=scene_id, feature_vector=record.feature_vector)
                 for scene_id, record in items
             ]
             with self._get_output_file(video_id, read_only=False) as file:

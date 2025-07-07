@@ -80,7 +80,7 @@ class FileHDF5:
             return
 
         # Ensure datasets are initialized with the correct dimensions
-        dim = len(record.feature)
+        dim = len(record.feature_vector)
         if self.ids_dataset is None or self.features_dataset is None:
             self.ids_dataset = self.file.create_dataset(
                 "ids",
@@ -105,7 +105,9 @@ class FileHDF5:
             self.features_dataset.resize((index + 1, dim))
 
         self.ids_dataset[index] = record._id.encode("utf-8")
-        self.features_dataset[index, :] = np.array(record.feature, dtype=np.float32)
+        self.features_dataset[index, :] = np.array(
+            record.feature_vector, dtype=np.float32
+        )
 
         self.flush_counter += 1
         if self.flush_counter >= self.flush_interval:
@@ -143,7 +145,7 @@ class FileHDF5:
 
         index = self.ids[_id]
         feature = self.features_dataset[index, :].tolist()
-        return FeatureRecord(_id=_id, feature=feature)
+        return FeatureRecord(_id=_id, feature_vector=feature)
 
     def read_all(self) -> list[FeatureRecord]:
         if self.file is None:
@@ -155,7 +157,7 @@ class FileHDF5:
         records: list[FeatureRecord] = []
         for _id, index in self.ids.items():
             feature = self.features_dataset[index, :].tolist()
-            records.append(FeatureRecord(_id=_id, feature=feature))
+            records.append(FeatureRecord(_id=_id, feature_vector=feature))
 
         return records
 
