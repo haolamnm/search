@@ -253,7 +253,7 @@ class CLIPVIPExtractor(BaseVideoExtractor):
         features = self.model.get_image_features(**inputs)
 
         records = [
-            FeatureRecord(_id="", feature=feature)
+            FeatureRecord(_id="", feature_vector=feature.tolist())
             for feature in features.detach().cpu().numpy()
         ]
         return records

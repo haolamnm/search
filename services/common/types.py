@@ -5,7 +5,7 @@ from pathlib import Path
 @dataclass
 class FeatureRecord:
     _id: str
-    feature: list[float]
+    feature_vector: list[float]
 
 
 @dataclass
@@ -19,6 +19,7 @@ class ObjectRecord:
     names: list[str] | None = None
     monochrome: float | None = None
     cluster_code: str | None = None
+    feature_str: str | None = None
 
 
 @dataclass

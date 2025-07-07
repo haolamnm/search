@@ -280,7 +280,7 @@ class CLIP2VideoExtractor(BaseVideoExtractor):
         records: list[FeatureRecord] = []
         for index, scene_id in enumerate(scene_ids):
             feature = video_features[index].cpu().numpy().tolist()
-            record = FeatureRecord(_id=scene_id, feature=feature)
+            record = FeatureRecord(_id=scene_id, feature_vector=feature)
             records.append(record)
 
         return records

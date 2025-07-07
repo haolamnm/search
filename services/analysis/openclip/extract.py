@@ -118,7 +118,9 @@ class OpenCLIPExtractor(BaseFrameExtractor):
                 features = features.cpu().numpy()
 
                 for frame_path, feature in zip(frame_paths, features):
-                    yield FeatureRecord(_id=frame_path.stem, feature=feature.tolist())
+                    yield FeatureRecord(
+                        _id=frame_path.stem, feature_vector=feature.tolist()
+                    )
 
 
 if __name__ == "__main__":
