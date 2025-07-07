@@ -86,6 +86,9 @@ def create_app() -> FastAPI:
         if not request.features_name:
             raise HTTPException(status_code=400, detail="features_name is required")
 
+        if not request.feature_vector:
+            raise HTTPException(status_code=400, detail="feature_vector is required")
+
         if request.features_name not in loaded_indices:
             try:
                 load_index(request.features_name)
@@ -96,9 +99,7 @@ def create_app() -> FastAPI:
             raise HTTPException(status_code=400, detail="k must be a positive integer")
 
         # Make sure the feature is a 2D numpy array
-        feature_vector = np.array(request.feature_vector, dtype=np.float32).reshape(
-            1, -1
-        )
+        feature_vector = np.atleast_2d(request.feature_vector).astype(np.float32)
         index_handler = loaded_indices[request.features_name]
 
         # Perform the search
