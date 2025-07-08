@@ -24,8 +24,10 @@ def load_image(image_path: Path) -> np.ndarray:
         # Convert to RGB if necessary
         if image_np.ndim == 2:  # Grayscale image_np
             image_np = np.stack([image_np] * 3, axis=-1)
+            logger.info(f"Converted grayscale image {image_path} to RGB")
         elif image_np.shape[2] == 4:  # RGBA image_np
             image_np = image_np[:, :, :3]
+            logger.info(f"Converted RGBA image {image_path} to RGB")
 
         return image_np
 
@@ -70,7 +72,7 @@ def extract_colors(
             props = measure.regionprops_table(tile, properties=("label", "area"))
 
             # Shift back to original color index
-            color_areas: npt.NDArray[np.floating] = props["area"] // tile.size
+            color_areas: npt.NDArray[np.floating] = props["area"] / tile.size
             color_labels: npt.NDArray[np.integer] = props["label"] - 1
 
             # Identify dominant color
@@ -151,7 +153,7 @@ def convert_table_to_record(
         _id="",
         scores=scores,
         yxyx_boxes=yxyx_boxes,
-        labels=labels,
+        names=labels,
         detector="colors",
     )
 
