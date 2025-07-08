@@ -7,6 +7,17 @@ analysis:
       num-workers: 8
 
 index:
+  objects:
+    exclude_labels:
+      all: []
+    min_area: 0.001
+    threshold:
+      monochrome: 0.01
+      colors: 0.1
+      frcnn-oiv4: 0.6
+      mrcnn-lvis: 0.5
+      vfnet64-coco: 0.5
+
   features:
     dinov2:
       index_engine: str
