@@ -76,10 +76,10 @@ class CLIPExtractor(BaseFrameExtractor):
         self.model = transformers.CLIPModel.from_pretrained(self.model_name).to(
             self.device  # type: ignore
         )
-        logger.info(f"Initialized model '{self.model_name}' on device '{self.device}'")
+        logger.info(f"Loaded model {self.model_name} on device {self.device}")
         self.model.eval()
         self.model = torch.compile(self.model)
-        logger.info("Compiled the model for performance optimization")
+        logger.info("Compiled model for performance optimization")
 
     def extract_iterable(self, frame_paths: Iterable[Path]) -> Iterator[FeatureRecord]:
         chunk_size = self.batch_size * 5
