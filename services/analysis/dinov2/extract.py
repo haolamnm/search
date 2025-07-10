@@ -92,6 +92,7 @@ class DinoV2Extractor(BaseFrameExtractor):
             trust_repo=True,
         ).to(self.device)  # type: ignore
         self.model.eval()
+        logger.info(f"Loaded model {self.model_name} on device {self.device}")
 
     def extract_list(self, frame_paths: list[Path]) -> list[FeatureRecord]:
         dataset = FrameListDataset(frame_paths)
