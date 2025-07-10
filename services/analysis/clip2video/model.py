@@ -84,7 +84,3 @@ class CLIP2VideoModel(CLIP2VideoBaseModel):
         visual_output = F.normalize(visual_output, p=2, dim=-1)
 
         return visual_output
-
-
-if __name__ == "__main__":
-    pass

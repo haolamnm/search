@@ -14,7 +14,6 @@ class Config:
         self.data_path = Path(__file__).parent / data_path
         self.embeddings_path: str | None = None
         self.num_thread_reader = 0
-        # self.batch_size_val = 64
         self.seed = 42
         self.max_words = 32
         self.max_frames = 36
@@ -36,12 +35,8 @@ class Config:
         self.temporal_type = "TDB"
         self.temporal_proj = "sigmoid_selfA"
         self.center_type = ""
-        self.centerK = 5
+        self.center_k = 5
         self.center_weight = 0.5
         self.center_proj = "TAB_TDB"
         self.clip_path = Path(__file__).parent / clip_path
         self.gpu = True
-
-
-if __name__ == "__main__":
-    pass

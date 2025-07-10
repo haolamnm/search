@@ -265,7 +265,7 @@ class CLIP2VideoExtractor(BaseVideoExtractor):
         self.model = load_model(self.config, self.device)
         self.model.eval()
         logger.info(
-            f"Loaded model at {self.config.checkpoint_dir.as_posix()} on device {self.device.type}"
+            f"Loaded model at {self.config.checkpoint_dir} on device {self.device.type}"
         )
 
     def forward_batch(
