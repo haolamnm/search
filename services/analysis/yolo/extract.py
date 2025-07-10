@@ -106,14 +106,14 @@ class YoloExtractor(BaseObjectExtractor):
         for frame_path in frame_paths:
             try:
                 image_np, width, height = load_image_pil(frame_path)
-                result = self.model(image_np, verbose=False)[0]
+                with torch.no_grad():
+                    result = self.model(image_np, verbose=False)[0]
                 record = get_record(result, width, height)
                 record._id = frame_path.stem
 
-                assert record.labels is not None, (
-                    f"Labels should not be None for {record._id}"
+                logger.info(
+                    f"Processed {record._id} with {len(record.labels or [])} labels"
                 )
-                logger.info(f"Processed {record._id} with {len(record.labels)} labels")
                 yield record
             except Exception as e:
                 logger.error(f"Failed to process {frame_path}: {e}")
