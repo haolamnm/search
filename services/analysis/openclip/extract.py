@@ -65,7 +65,7 @@ class OpenCLIPExtractor(BaseFrameExtractor):
         self.num_workers: int = args.num_workers
 
         # Ensure the cache directory exists
-        cache_dir = "/cache/open_clip"
+        cache_dir = "~/.cache/open_clip"
         os.makedirs(cache_dir, exist_ok=True)
 
         self.device = "cuda" if torch.cuda.is_available() and self.gpu else "cpu"
@@ -75,10 +75,12 @@ class OpenCLIPExtractor(BaseFrameExtractor):
             device=self.device,
             cache_dir=cache_dir,
         )
+        logger.info(f"Loaded model {self.pretrained} on device {self.device}")
         self.model = self.model.to(self.device)
         self.model.eval()
 
         self.model = torch.compile(self.model)
+        logger.info("Compiled model for performance optimization")
 
     def extract_iterable(self, frame_paths: Iterable[Path]) -> Iterator[FeatureRecord]:
         chunk_size = self.batch_size * 5
