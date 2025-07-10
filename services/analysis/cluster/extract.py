@@ -36,7 +36,7 @@ def cluster(frame_features: np.ndarray) -> list[str]:
         logger.warning("Exceeding maximum number of clusters (8836)")
 
     labels = []
-    dX = squareform(pdist(frame_features, metric="euclidean"))
+    distance_matrix = squareform(pdist(frame_features, metric="euclidean"))
     thrs = np.arange(0.35, 1.50, 0.05)
 
     for thr in thrs:
@@ -44,7 +44,7 @@ def cluster(frame_features: np.ndarray) -> list[str]:
             n_clusters=None,
             distance_threshold=thr,
             linkage="single",
-        ).fit_predict(dX)
+        ).fit_predict(distance_matrix)
 
         labels.append(assignments)
 
