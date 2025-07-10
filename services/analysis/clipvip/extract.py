@@ -245,6 +245,7 @@ class CLIPVIPExtractor(BaseVideoExtractor):
 
         model_type = self.model_name.split("clip-vit-")[-1]
         self.processor = AutoProcessor.from_pretrained(f"microsoft/xclip-{model_type}")
+        logger.info(f"Loaded model {self.model_name} on device {self.device}")
 
     def forward_batch(self, video: torch.Tensor) -> list[FeatureRecord]:
         video = video.to(self.device)
