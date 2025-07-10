@@ -3,6 +3,7 @@ from pathlib import Path
 from typing import Any, Iterable, Iterator
 
 import numpy as np
+import torch
 from PIL import Image
 from ultralytics import YOLO
 
@@ -92,10 +93,14 @@ class YoloExtractor(BaseObjectExtractor):
     def __init__(self, args: argparse.Namespace) -> None:
         super().__init__(args)
         self.model_version: str = args.model_version
+        self.device = "cuda" if self.gpu and torch.cuda.is_available() else "cpu"
 
         model_path = Path(__file__).parent / "checkpoint" / self.model_version
-        self.model = YOLO(model_path)
-        logger.info(f"Loaded YOLO model from {model_path}")
+        self.model = YOLO(model_path).to(self.device).eval()
+        logger.info(f"Loaded model from {model_path}")
+
+        self.model.compile()
+        logger.info("Compiled model for performance optimization")
 
     def extract_iterable(self, frame_paths: Iterable[Path]) -> Iterator[ObjectRecord]:
         for frame_path in frame_paths:
